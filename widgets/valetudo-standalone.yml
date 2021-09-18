@@ -222,7 +222,7 @@ slots:
               large: true
               action: options
               actionItem: =props.item + "_Cleansegments"
-              actionOptions: '=props.segments ? props.segments : JSON.stringify(JSON.parse(items[props.item + "_Mapsegments"].state)).replaceAll("{\"", "").replaceAll("\":\"", "=").replaceAll("\",\"", ", ").replaceAll("\"}", "")'
+              actionOptions: '=props.segments ? "{\"segment_ids\":[\"" +props.segments.replaceAll("=","\"]}=" ).replaceAll(", ", ", {\"segment_ids\":[\"").slice(0, -1) : "{\"segment_ids\":[" + JSON.stringify(JSON.parse(items[props.item + "_Mapsegments"].state)).replaceAll("\{","").replaceAll("\}","").replaceAll("\":\"","\"]}=" ).replaceAll("\",\"",", {\"segment_ids\":[\"").slice(0, -1)'
               style:
                 display: '=((items[props.item + "_Mapsegments"].state !== "" && items[props.item + "_Mapsegments"].state !== "{}") || props.segments) && items[props.item + "_Cleansegments"] !== undefined ? undefined : "none"'
     - component: f7-row
